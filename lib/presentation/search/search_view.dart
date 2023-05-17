@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Center(child: Text(AppStrings.empty)),
+    );
   }
 }

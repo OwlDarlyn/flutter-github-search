@@ -43,12 +43,22 @@ class _SplashViewState extends State<SplashView> {
     return Scaffold(
       backgroundColor: ColorManager.accentPrimary,
       body: Center(
-        child: Text(
-          AppStrings.searchApp,
-          style: getHeaderStyle(
-            color: ColorManager.layer1,
-            fontSize: FontSize.s16,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              AppStrings.searchApp,
+              style: getHeaderStyle(
+                color: ColorManager.layer1,
+                fontSize: FontSize.s16,
+              ),
+            ),
+            const SizedBox(height: 16),
+            CircularProgressIndicator(
+              color: ColorManager.placeHolder,
+            ),
+          ],
         ),
       ),
     );
