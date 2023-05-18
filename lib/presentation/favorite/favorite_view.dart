@@ -8,7 +8,10 @@ class FavoriteScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.favoriteTitle),
+      appBar: CustomAppBar(
+        title: AppStrings.favoriteTitle,
+        icon: Icon(Icons.star),
+      ),
       body: Container(
         child: Text('Heloo'),
       ),
