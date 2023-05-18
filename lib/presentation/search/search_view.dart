@@ -16,32 +16,7 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(child: child, preferredSize: preferredSize),
-      // appBar: AppBar(
-      //   actions: [
-      //     Container(
-      //       height: 44,
-      //       alignment: Alignment.center,
-      //       margin: const EdgeInsets.only(right: 16, top: 5, bottom: 5),
-      //       decoration: BoxDecoration(
-      //           color: ColorManager.accentPrimary,
-      //           borderRadius: const BorderRadius.all(Radius.circular(12))),
-      //       child: IconButton(
-      //           onPressed: () => goToFavorite(context),
-      //           icon: Icon(
-      //             Icons.star,
-      //             color: ColorManager.main,
-      //           )),
-      //     )
-      //   ],
-      //   title: Text(
-      //     AppStrings.searchTitle,
-      //     style: getHeaderStyle(
-      //       color: ColorManager.textPrimary,
-      //       fontSize: FontSize.s16,
-      //     ),
-      //   ),
-      // ),
+      appBar: const CustomAppBar(title: AppStrings.searchTitle),
       body: Center(
         child: Column(
           children: [
