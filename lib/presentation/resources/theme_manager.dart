@@ -13,7 +13,7 @@ ThemeData getApplicationTheme() {
     appBarTheme: AppBarTheme(
       centerTitle: true,
       color: ColorManager.main,
-      elevation: AppSize.s4,
+      elevation: AppSize.s0,
       titleTextStyle: getHeaderStyle(color: ColorManager.textPrimary),
     ),
   );
