@@ -25,6 +25,9 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
+  Size get preferredSize => const Size.fromHeight(50);
+
+  @override
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(
@@ -51,9 +54,6 @@ class CustomAppBar extends StatelessWidget with PreferredSizeWidget {
       ],
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(50);
 }
 
 

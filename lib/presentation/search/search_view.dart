@@ -23,12 +23,12 @@ class SearchView extends StatelessWidget {
       appBar: CustomAppBar(
         margin: const EdgeInsets.only(right: 16, top: 2, bottom: 2),
         title: AppStrings.searchTitle,
-        icon: const Icon(Icons.star),
+        icon: const Icon(Icons.star, size: 30),
       ),
       body: Center(
         child: Column(
           children: [
-            const SearchForm(),
+            SearchForm(),
             Container(
               margin: const EdgeInsets.only(left: 16, top: 16),
               alignment: Alignment.centerLeft,
