@@ -16,7 +16,10 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(title: AppStrings.searchTitle),
+      appBar: const CustomAppBar(
+        title: AppStrings.searchTitle,
+        icon: Icon(Icons.star),
+      ),
       body: Center(
         child: Column(
           children: [
