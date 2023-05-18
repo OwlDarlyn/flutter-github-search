@@ -10,8 +10,9 @@ class SearchForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 24, left: 16, right: 16, bottom: 16),
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.only(left: 18, right: 18),
       height: 56,
       decoration: BoxDecoration(
         color: ColorManager.layer1,
