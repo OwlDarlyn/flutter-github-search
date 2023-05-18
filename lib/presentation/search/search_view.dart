@@ -13,12 +13,17 @@ import 'package:potje_test_assignment/presentation/resources/values_manager.dart
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
 
+  void goToFavorite(BuildContext context) {
+    Navigator.pushReplacementNamed(context, Routes.favoriteRoute);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
+      appBar: CustomAppBar(
+        margin: const EdgeInsets.only(right: 16, top: 2, bottom: 2),
         title: AppStrings.searchTitle,
-        icon: Icon(Icons.star),
+        icon: const Icon(Icons.star),
       ),
       body: Center(
         child: Column(
