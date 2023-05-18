@@ -3,7 +3,7 @@ class AppStrings {
   static const String search = 'Search';
 
   static const String empty =
-      'You have empty history. Click on search to start journey!';
+      'You have empty history. \n Click on search to start journey!';
   static const String nothingSearch =
       'Nothing was find for your search. Please check the spelling';
   static const String nothingFavorite =
