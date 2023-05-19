@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +26,11 @@ class SearchView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final GitApiResponse providerData = ref.watch(gitReposProvider);
+
+    void onSearchSubmit(String repoName) {
+      log("hello");
+      ref.read(gitReposProvider.notifier).searchRepos(repoName);
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -57,7 +64,9 @@ class SearchView extends ConsumerWidget {
       body: Center(
         child: Column(
           children: [
-            SearchForm(),
+            SearchForm(
+              onSubmit: (value) => onSearchSubmit(value),
+            ),
             Container(
               margin: const EdgeInsets.only(left: 16, top: 16),
               alignment: Alignment.centerLeft,

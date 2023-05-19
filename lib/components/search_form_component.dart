@@ -10,12 +10,13 @@ import 'package:potje_test_assignment/presentation/resources/styles_manager.dart
 import 'package:potje_test_assignment/data/network/git_repos_api.dart';
 import 'package:potje_test_assignment/provider/git_repos_provider.dart';
 
-class SearchForm extends ConsumerWidget {
-  SearchForm({super.key});
+class SearchForm extends StatelessWidget {
+  final Function(String value) onSubmit;
+  SearchForm({super.key, required this.onSubmit});
   final controller = TextEditingController();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 24, left: 16, right: 16),
@@ -30,9 +31,7 @@ class SearchForm extends ConsumerWidget {
           final bool hasFocus = focusNode.hasFocus;
           return TextFormField(
             controller: controller,
-            onFieldSubmitted: (value) {
-              ref.read(gitReposProvider.notifier).searchRepos(value);
-            },
+            onFieldSubmitted: (value) => onSubmit(value),
             // onChanged: (value) =>
             //     context.read<GitReposProvider>().searchGitRepos(value),
             textInputAction: TextInputAction.search,
