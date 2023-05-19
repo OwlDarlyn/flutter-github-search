@@ -7,10 +7,11 @@ class GitApiResponse {
   final bool fetched;
   final List<GitRepo> reposList;
 
-  GitApiResponse(
-      {required this.resultCount,
-      required this.reposList,
-      required this.fetched});
+  GitApiResponse({
+    required this.resultCount,
+    required this.reposList,
+    required this.fetched,
+  });
 
   factory GitApiResponse.fromJson(Map<String, dynamic> json) {
     return GitApiResponse(

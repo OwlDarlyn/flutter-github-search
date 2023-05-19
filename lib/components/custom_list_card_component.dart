@@ -13,23 +13,32 @@ class CustomListCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(left: 16, right: 16),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      elevation: 0,
+      color: ColorManager.layer1,
+      margin: const EdgeInsets.only(left: 16, right: 16, top: 8),
       child: Container(
+        height: 55,
         padding: const EdgeInsets.only(left: 16, right: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              listItem.name,
-              style: getBodyStyle(
-                color: ColorManager.textPrimary,
-                fontSize: FontSize.s14,
+            Expanded(
+              child: Text(
+                listItem.name,
+                style: getBodyStyle(
+                  color: ColorManager.textPrimary,
+                  fontSize: FontSize.s14,
+                ),
               ),
             ),
             IconButton(
                 onPressed: () {},
-                icon: const Icon(
-                  Icons.star_border,
+                icon: Icon(
+                  Icons.star,
+                  color: ColorManager.placeHolder,
+                  size: 28,
                 ))
           ],
         ),
