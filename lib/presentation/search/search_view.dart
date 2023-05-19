@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:potje_test_assignment/components/app_bar_component.dart';
 import 'package:potje_test_assignment/components/search_form_component.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
@@ -9,6 +9,8 @@ import 'package:potje_test_assignment/presentation/resources/routes_manager.dart
 import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/values_manager.dart';
+import 'package:potje_test_assignment/provider/repos/git_repos.dart';
+import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
@@ -20,11 +22,37 @@ class SearchView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
-        margin: const EdgeInsets.only(right: 16, top: 2, bottom: 2),
-        title: AppStrings.searchTitle,
-        icon: const Icon(Icons.star, size: 30),
+      appBar: AppBar(
+        title: Text(
+          AppStrings.searchTitle,
+          style: getHeaderStyle(
+            color: ColorManager.textPrimary,
+            fontSize: FontSize.s16,
+          ),
+        ),
+        actions: [
+          Container(
+            margin: const EdgeInsets.only(right: 16, top: 10),
+            height: 44,
+            width: 44,
+            decoration: BoxDecoration(
+                color: ColorManager.accentPrimary,
+                borderRadius: const BorderRadius.all(Radius.circular(12))),
+            child: IconButton(
+              onPressed: () => goToFavorite(context),
+              icon: Icon(
+                Icons.star,
+                size: 28,
+                color: ColorManager.main,
+              ),
+              color: ColorManager.main,
+            ),
+          ),
+        ],
       ),
+      // appBar: CustomAppBar(
+      //   title: AppStrings.searchTitle,
+      // ),
       body: Center(
         child: Column(
           children: [
@@ -38,16 +66,8 @@ class SearchView extends StatelessWidget {
                     color: ColorManager.accentPrimary, fontSize: FontSize.s16),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.only(top: 184),
-              child: Text(
-                textAlign: TextAlign.center,
-                AppStrings.empty,
-                style: getBodyStyle(
-                  color: ColorManager.placeHolder,
-                  fontSize: FontSize.s14,
-                ),
-              ),
+            const Expanded(
+              child: ReposList(),
             ),
           ],
         ),
