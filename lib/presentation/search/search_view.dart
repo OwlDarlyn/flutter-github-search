@@ -2,17 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:potje_test_assignment/components/search_form_component.dart';
+import 'package:potje_test_assignment/model/git_api_response_model.dart';
+import 'package:potje_test_assignment/model/git_repos_model.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/routes_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
-import 'package:potje_test_assignment/presentation/resources/values_manager.dart';
-import 'package:potje_test_assignment/provider/repos/git_repos.dart';
+import 'package:potje_test_assignment/provider/git_repos_provider.dart';
 import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
+import 'package:provider/provider.dart';
 
-class SearchView extends StatelessWidget {
+class SearchView extends ConsumerWidget {
   const SearchView({super.key});
 
   void goToFavorite(BuildContext context) {
@@ -20,7 +22,9 @@ class SearchView extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final GitApiResponse providerData = ref.watch(gitReposProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -50,9 +54,6 @@ class SearchView extends StatelessWidget {
           ),
         ],
       ),
-      // appBar: CustomAppBar(
-      //   title: AppStrings.searchTitle,
-      // ),
       body: Center(
         child: Column(
           children: [
@@ -61,13 +62,17 @@ class SearchView extends StatelessWidget {
               margin: const EdgeInsets.only(left: 16, top: 16),
               alignment: Alignment.centerLeft,
               child: Text(
-                AppStrings.searchSubTitle1,
+                providerData.fetched
+                    ? AppStrings.searchSubTitle2
+                    : AppStrings.searchSubTitle1,
                 style: getHeaderStyle(
                     color: ColorManager.accentPrimary, fontSize: FontSize.s16),
               ),
             ),
-            const Expanded(
-              child: ReposList(),
+            Expanded(
+              child: ReposList(
+                gitReposList: providerData.reposList,
+              ),
             ),
           ],
         ),

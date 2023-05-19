@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:gap/gap.dart';
+import '';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
@@ -25,7 +28,7 @@ class FavoriteScreen extends StatelessWidget {
             ),
           ),
           leading: Container(
-            margin: const EdgeInsets.only(left: 20, top: 10),
+            margin: const EdgeInsets.only(left: 16, top: 10),
             height: 44,
             padding: const EdgeInsets.only(left: 6),
             decoration: BoxDecoration(
@@ -39,14 +42,17 @@ class FavoriteScreen extends StatelessWidget {
                   size: 28,
                 )),
           ),
-          leadingWidth: 65,
+          leadingWidth: 62,
         ),
-        // appBar: CustomAppBar(
-        //   margin: const EdgeInsets.only(right: 16, top: 2, bottom: 2),
-        //   title: AppStrings.favoriteTitle,
-        // ),
         body: Center(
-          child: Text('data'),
+          child: Text(
+            textAlign: TextAlign.center,
+            AppStrings.nothingFavorite,
+            style: getBodyStyle(
+              color: ColorManager.placeHolder,
+              fontSize: FontSize.s14,
+            ),
+          ),
         ));
   }
 }

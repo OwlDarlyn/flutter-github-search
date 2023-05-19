@@ -1,29 +1,21 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:provider/provider.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
+import 'package:potje_test_assignment/data/network/git_repos_api.dart';
+import 'package:potje_test_assignment/provider/git_repos_provider.dart';
 
-class SearchForm extends StatefulWidget {
-  const SearchForm({
-    super.key,
-  });
+class SearchForm extends ConsumerWidget {
+  SearchForm({super.key});
+  final controller = TextEditingController();
 
   @override
-  State<SearchForm> createState() => _SearchFormState();
-}
-
-class _SearchFormState extends State<SearchForm> {
-  @override
-  Widget build(BuildContext context) {
-    late final controller = TextEditingController();
-
-    @override
-    void initState() {
-      super.initState();
-      controller.addListener(() {});
-    }
-
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
       alignment: Alignment.center,
       margin: const EdgeInsets.only(top: 24, left: 16, right: 16),
@@ -38,8 +30,12 @@ class _SearchFormState extends State<SearchForm> {
           final bool hasFocus = focusNode.hasFocus;
           return TextFormField(
             controller: controller,
-            onChanged: (value) {},
-            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (value) {
+              ref.read(gitReposProvider.notifier).searchRepos(value);
+            },
+            // onChanged: (value) =>
+            //     context.read<GitReposProvider>().searchGitRepos(value),
+            textInputAction: TextInputAction.search,
             maxLines: 1,
             cursorColor: ColorManager.accentPrimary,
             decoration: InputDecoration(
@@ -56,24 +52,30 @@ class _SearchFormState extends State<SearchForm> {
                 size: 30,
               ),
               prefixIconColor: ColorManager.accentPrimary,
-              suffixIcon: controller.text.isEmpty
-                  ? null
-                  : GestureDetector(
-                      onTap: controller.clear,
-                      child: Container(
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 2, color: ColorManager.accentPrimary),
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(40),
+              suffixIcon: ValueListenableBuilder<TextEditingValue>(
+                  valueListenable: controller,
+                  builder: (context, value, child) {
+                    if (value.text.isNotEmpty) {
+                      return GestureDetector(
+                        onTap: controller.clear,
+                        child: Container(
+                          margin: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2, color: ColorManager.accentPrimary),
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(40),
+                            ),
+                          ),
+                          child: const Icon(
+                            Icons.clear,
                           ),
                         ),
-                        child: const Icon(
-                          Icons.clear,
-                        ),
-                      ),
-                    ),
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  }),
               suffixIconColor: ColorManager.accentPrimary,
               hintText: 'Search',
               hintStyle: getBodyStyle(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:potje_test_assignment/presentation/favorite/favorite_view.dart';
 import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
@@ -17,7 +18,8 @@ class RouteGenerator {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashView());
       case Routes.searchRoute:
-        return MaterialPageRoute(builder: (_) => const SearchView());
+        return MaterialPageRoute(
+            builder: (_) => const ProviderScope(child: SearchView()));
       case Routes.favoriteRoute:
         return MaterialPageRoute(builder: (_) => const FavoriteScreen());
       default:
