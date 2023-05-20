@@ -2,7 +2,6 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:provider/provider.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';

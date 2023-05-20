@@ -1,0 +1,47 @@
+import 'dart:developer';
+import 'dart:io';
+import 'package:path/path.dart';
+import 'package:potje_test_assignment/model/git_repos_model.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:path_provider/path_provider.dart';
+
+class DatabaseHelper {
+  DatabaseHelper._privateConstructor();
+  static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
+
+  static Database? _database;
+  Future<Database> get database async => _database ??= await _initDatabase();
+
+  Future<Database> _initDatabase() async {
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, 'favorite_repos.db');
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: _onCreate,
+    );
+  }
+
+  Future _onCreate(Database db, int version) async {
+    await db.execute('''
+      CREATE TABLE favorite_repos(
+          id INTEGER,
+          full_name TEXT,
+          html_url TEXT
+      )
+      ''');
+  }
+
+  Future<List<GitRepo>> getFavorites() async {
+    Database db = await instance.database;
+    var favoriteRepos = await db.query('favorite_repos');
+    final favoriteReposList =
+        favoriteRepos.map((e) => GitRepo.fromJson(e)).toList();
+    return favoriteReposList;
+  }
+
+  Future<int> add(GitRepo gitRepo) async {
+    Database db = await instance.database;
+    return await db.insert('favorite_repos', gitRepo.toMap());
+  }
+}

@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:potje_test_assignment/presentation/resources/routes_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/theme_manager.dart';
 
+import '../data/local/database_helper.dart';
+
 class MyApp extends StatefulWidget {
   MyApp._internal();
   int appState = 0;

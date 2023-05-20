@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:potje_test_assignment/data/local/database_helper.dart';
 
 import 'package:potje_test_assignment/model/git_repos_model.dart';
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
@@ -34,7 +35,9 @@ class CustomListCard extends StatelessWidget {
               ),
             ),
             IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  DatabaseHelper.instance.add(listItem);
+                },
                 icon: Icon(
                   Icons.star,
                   color: ColorManager.placeHolder,

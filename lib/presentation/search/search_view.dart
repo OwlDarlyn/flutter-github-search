@@ -29,6 +29,18 @@ class SearchView extends ConsumerWidget {
       ref.read(gitReposProvider.notifier).searchRepos(repoName);
     }
 
+    String getSubtitleString() {
+      if (providerData.asData != null) {
+        if (providerData.asData?.value.fetched != null &&
+            providerData.asData?.value.fetched == true) {
+          return AppStrings.searchSubTitle2;
+        } else {
+          return AppStrings.searchSubTitle1;
+        }
+      }
+      return AppStrings.searchSubTitle1;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -68,9 +80,7 @@ class SearchView extends ConsumerWidget {
               margin: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
               alignment: Alignment.centerLeft,
               child: Text(
-                providerData.hasValue
-                    ? AppStrings.searchSubTitle2
-                    : AppStrings.searchSubTitle1,
+                getSubtitleString(),
                 style: getHeaderStyle(
                     color: ColorManager.accentPrimary, fontSize: FontSize.s16),
               ),
