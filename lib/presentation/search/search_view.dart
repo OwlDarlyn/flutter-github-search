@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:potje_test_assignment/components/search_form_component.dart';
-import 'package:potje_test_assignment/model/git_api_response_model.dart';
+import 'package:potje_test_assignment/data/local/database_helper.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
@@ -14,8 +14,12 @@ import 'package:potje_test_assignment/presentation/resources/styles_manager.dart
 import 'package:potje_test_assignment/provider/git_repos_provider.dart';
 import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
 
+import '../../model/git_repos_model.dart';
+
 class SearchView extends ConsumerWidget {
-  const SearchView({super.key});
+  SearchView({super.key});
+
+  final ScrollController scrollController = ScrollController();
 
   void goToFavorite(BuildContext context) {
     Navigator.pushReplacementNamed(context, Routes.favoriteRoute);
@@ -26,7 +30,7 @@ class SearchView extends ConsumerWidget {
     final providerData = ref.watch(gitReposProvider);
 
     void onSearchSubmit(String repoName) {
-      ref.read(gitReposProvider.notifier).searchRepos(repoName);
+      ref.read(gitReposProvider.notifier).searchRepos(repoName, 1);
     }
 
     String getSubtitleString() {
@@ -40,6 +44,15 @@ class SearchView extends ConsumerWidget {
       }
       return AppStrings.searchSubTitle1;
     }
+
+    scrollController.addListener(() {
+      double maxScroll = scrollController.position.maxScrollExtent;
+      double currentScroll = scrollController.position.pixels;
+      double delta = MediaQuery.of(context).size.width * 0.10;
+      if (maxScroll - currentScroll <= delta) {
+        ref.read(gitReposProvider.notifier).getMoreRepos();
+      }
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +90,7 @@ class SearchView extends ConsumerWidget {
               onSubmit: (value) => onSearchSubmit(value),
             ),
             Container(
-              margin: const EdgeInsets.only(left: 16, top: 16, bottom: 8),
+              margin: const EdgeInsets.only(left: 16, top: 16, bottom: 12),
               alignment: Alignment.centerLeft,
               child: Text(
                 getSubtitleString(),
@@ -88,21 +101,21 @@ class SearchView extends ConsumerWidget {
             Expanded(
               child: providerData.when(
                   data: (data) {
-                    return ReposList(
-                      gitReposList: data.reposList,
-                      notFoundString: data.fetched
-                          ? AppStrings.nothingSearch
-                          : AppStrings.empty,
+                    return SafeArea(
+                      child: ReposList(
+                        scrollController: scrollController,
+                        favoritesGitReposList: data.favoriteReposList,
+                        mode: "search",
+                        gitReposList: data.reposList,
+                        notFoundString: data.fetched
+                            ? AppStrings.nothingSearch
+                            : AppStrings.empty,
+                      ),
                     );
                   },
-                  error: (error, s) => Text("Error fetching"),
-                  loading: () => Center(child: CircularProgressIndicator())),
-              // child: ReposList(
-              //   gitReposList: providerData.reposList,
-              //   notFoundString: providerData.fetched
-              //       ? AppStrings.nothingSearch
-              //       : AppStrings.empty,
-              // ),
+                  error: (error, s) => const Text("Error fetching"),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator())),
             ),
           ],
         ),

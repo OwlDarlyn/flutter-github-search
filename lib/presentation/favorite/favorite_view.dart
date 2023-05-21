@@ -1,10 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:gap/gap.dart';
 import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
-import '';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
@@ -60,13 +57,18 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
         ),
         leadingWidth: 62,
       ),
-      body: FutureBuilder<List<GitRepo>>(
-          future: DatabaseHelper.instance.getFavorites(),
-          builder: (context, AsyncSnapshot<List<GitRepo>> snapshot) {
-            return ReposList(
-                gitReposList: snapshot.data ?? [],
-                notFoundString: AppStrings.nothingFavorite);
-          }),
+      body: Container(
+        margin: const EdgeInsets.only(top: 20),
+        child: FutureBuilder<List<GitRepo>>(
+            future: DatabaseHelper.instance.getFavorites(),
+            builder: (context, AsyncSnapshot<List<GitRepo>> snapshot) {
+              return ReposList(
+                  favoritesGitReposList: snapshot.data ?? [],
+                  gitReposList: [],
+                  mode: "favorites",
+                  notFoundString: AppStrings.nothingFavorite);
+            }),
+      ),
     );
   }
 }

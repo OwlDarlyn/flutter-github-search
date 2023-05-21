@@ -8,8 +8,10 @@ import 'package:potje_test_assignment/presentation/resources/styles_manager.dart
 
 class CustomListCard extends StatelessWidget {
   final GitRepo listItem;
+  final bool isInFavorites;
 
-  const CustomListCard({super.key, required this.listItem});
+  const CustomListCard(
+      {super.key, required this.listItem, required this.isInFavorites});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,9 @@ class CustomListCard extends StatelessWidget {
                 },
                 icon: Icon(
                   Icons.star,
-                  color: ColorManager.placeHolder,
+                  color: isInFavorites
+                      ? ColorManager.accentPrimary
+                      : ColorManager.placeHolder,
                   size: 28,
                 ))
           ],
