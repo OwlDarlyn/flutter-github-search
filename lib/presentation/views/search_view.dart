@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:potje_test_assignment/components/search_form_component.dart';
-import 'package:potje_test_assignment/data/local/database_helper.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
@@ -13,8 +12,6 @@ import 'package:potje_test_assignment/presentation/resources/strings_manager.dar
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
 import 'package:potje_test_assignment/provider/git_repos_provider.dart';
 import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
-
-import '../../model/git_repos_model.dart';
 
 class SearchView extends ConsumerWidget {
   SearchView({super.key});

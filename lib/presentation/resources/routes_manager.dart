@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:potje_test_assignment/presentation/favorite/favorite_view.dart';
+import 'package:potje_test_assignment/presentation/views/favorite_view.dart';
 import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
-import 'package:potje_test_assignment/presentation/search/search_view.dart';
+import 'package:potje_test_assignment/presentation/views/search_view.dart';
 import 'package:potje_test_assignment/presentation/splash/splash_view.dart';
 
 class Routes {

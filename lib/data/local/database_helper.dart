@@ -14,7 +14,7 @@ class DatabaseHelper {
 
   Future<Database> _initDatabase() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentsDirectory.path, 'favorite_repos.db');
+    String path = join(documentsDirectory.path, 'repos.db');
     return await openDatabase(
       path,
       version: 1,
@@ -28,6 +28,10 @@ class DatabaseHelper {
           id INTEGER,
           full_name TEXT,
           html_url TEXT
+      );
+      CREATE TABLE search_history(
+        id INTEGER PRIMARY KEY,
+        search_string TEXT
       )
       ''');
   }
