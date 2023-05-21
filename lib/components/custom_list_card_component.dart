@@ -6,13 +6,18 @@ import 'package:potje_test_assignment/presentation/resources/color_manager.dart'
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
 
-class CustomListCard extends StatelessWidget {
+class CustomListCard extends StatefulWidget {
   final GitRepo listItem;
-  final bool isInFavorites;
+  bool isInFavorites;
 
-  const CustomListCard(
-      {super.key, required this.listItem, required this.isInFavorites});
+  CustomListCard(
+      {super.key, required this.listItem, this.isInFavorites = false});
 
+  @override
+  State<CustomListCard> createState() => _CustomListCardState();
+}
+
+class _CustomListCardState extends State<CustomListCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -29,7 +34,7 @@ class CustomListCard extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                listItem.name,
+                widget.listItem.name,
                 style: getBodyStyle(
                   color: ColorManager.textPrimary,
                   fontSize: FontSize.s14,
@@ -38,11 +43,19 @@ class CustomListCard extends StatelessWidget {
             ),
             IconButton(
                 onPressed: () {
-                  DatabaseHelper.instance.add(listItem);
+                  if (widget.isInFavorites) {
+                    DatabaseHelper.instance.delete(widget.listItem);
+                    widget.isInFavorites = false;
+                    setState(() {});
+                  } else {
+                    DatabaseHelper.instance.add(widget.listItem);
+                    widget.isInFavorites = true;
+                    setState(() {});
+                  }
                 },
                 icon: Icon(
                   Icons.star,
-                  color: isInFavorites
+                  color: widget.isInFavorites
                       ? ColorManager.accentPrimary
                       : ColorManager.placeHolder,
                   size: 28,

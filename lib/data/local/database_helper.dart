@@ -44,4 +44,10 @@ class DatabaseHelper {
     Database db = await instance.database;
     return await db.insert('favorite_repos', gitRepo.toMap());
   }
+
+  Future<int> delete(GitRepo gitRepo) async {
+    Database db = await instance.database;
+    return await db.delete('favorite_repos',
+        where: "id = ?", whereArgs: [gitRepo.id.toString()]);
+  }
 }
