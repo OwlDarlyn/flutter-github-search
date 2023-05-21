@@ -1,16 +1,19 @@
 # potje_test_assignment
 
-A new Flutter project.
+An application, which searches Repositories by name using GitHub API.
 
-## Getting Started
+## Packages used
 
-This project is a starting point for a Flutter application.
+  * flutter_riverpod v2.3.6
+  * sqflite v2.2.8+4
+  * path_provider v2.0.15
+  * path v1.8.2
+  * http v0.13.6
 
-A few resources to get you started if this is your first Flutter project:
+## App's screens
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](load_screen.png)
+![](search_empty.png)
+![](search_active_input.png)
+![](search_list.png)
+![](favorite_list.png)
