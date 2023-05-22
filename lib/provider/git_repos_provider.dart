@@ -46,7 +46,6 @@ class GitReposNotifier extends StateNotifier<AsyncValue<GitApiResponse>> {
       final newData = await _gitReposService.searchRepos(
           state.value!.repoName, state.value!.pageNumber + 1);
       final favorites = await DatabaseHelper.instance.getFavorites();
-      final history = await DatabaseHelper.instance.getHistory();
 
       state = AsyncValue.data(
         GitApiResponse(
