@@ -25,7 +25,6 @@ class GitReposNotifier extends StateNotifier<AsyncValue<GitApiResponse>> {
         fetched: false,
         pageNumber: 0,
         repoName: "",
-        searchHistoryList: [],
       ),
     );
   }
@@ -47,7 +46,7 @@ class GitReposNotifier extends StateNotifier<AsyncValue<GitApiResponse>> {
       final newData = await _gitReposService.searchRepos(
           state.value!.repoName, state.value!.pageNumber + 1);
       final favorites = await DatabaseHelper.instance.getFavorites();
-      final history = await DatabaseHelper.instance.getHistory('');
+      final history = await DatabaseHelper.instance.getHistory();
 
       state = AsyncValue.data(
         GitApiResponse(
@@ -57,7 +56,6 @@ class GitReposNotifier extends StateNotifier<AsyncValue<GitApiResponse>> {
           favoriteReposList: favorites,
           reposList: [...currentState, ...newData.reposList],
           resultCount: state.value!.resultCount,
-          searchHistoryList: history,
         ),
       );
       canFetchMore = true;

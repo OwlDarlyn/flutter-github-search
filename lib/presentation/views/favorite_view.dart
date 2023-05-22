@@ -68,7 +68,6 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 gitReposList: [],
                 mode: "favorites",
                 notFoundString: AppStrings.nothingFavorite,
-                searchHistoryList: [],
               );
             }),
       ),

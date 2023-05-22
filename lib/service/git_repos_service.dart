@@ -15,11 +15,9 @@ class GitReposService {
     if (response.statusCode == 200) {
       final parsedResponse = json.decode(utf8.decode(response.bodyBytes));
       final favoriteRepos = await DatabaseHelper.instance.getFavorites();
-      final searchHistory = await DatabaseHelper.instance.getHistory(repoName);
       parsedResponse['repoName'] = repoName;
       parsedResponse['pageNumber'] = pageNumber;
       parsedResponse['favorite_repos'] = favoriteRepos;
-      parsedResponse['search_history'] = searchHistory;
       return GitApiResponse.fromJson(parsedResponse);
     } else {
       throw Exception('Failed to fetch repos');

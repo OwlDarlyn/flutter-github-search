@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:potje_test_assignment/components/custom_list_card_component.dart';
+import 'package:potje_test_assignment/data/local/database_helper.dart';
 import 'package:potje_test_assignment/model/git_repos_model.dart';
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
+import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
 
 class ReposList extends StatelessWidget {
@@ -11,16 +13,15 @@ class ReposList extends StatelessWidget {
   final String mode;
   final String notFoundString;
   final ScrollController? scrollController;
-  final List<GitRepo> searchHistoryList;
 
-  const ReposList(
-      {super.key,
-      required this.gitReposList,
-      required this.notFoundString,
-      required this.favoritesGitReposList,
-      required this.mode,
-      this.scrollController,
-      required this.searchHistoryList});
+  const ReposList({
+    super.key,
+    required this.gitReposList,
+    required this.notFoundString,
+    required this.favoritesGitReposList,
+    required this.mode,
+    this.scrollController,
+  });
 
   bool getIsFavorite(GitRepo? gitRepo) {
     return favoritesGitReposList.contains(gitRepo);
@@ -49,17 +50,33 @@ class ReposList extends StatelessWidget {
               showAddToFavorite: true,
             );
           });
-    } else if (mode == 'history' && searchHistoryList.isNotEmpty) {
-      return ListView.builder(
-        itemCount: searchHistoryList.length,
-        itemBuilder: (context, index) {
-          return CustomListCard(
-            listItem: searchHistoryList[index],
-            isInFavorites: false,
-            showAddToFavorite: false,
-          );
-        },
-      );
+    } else if (mode == 'history') {
+      return FutureBuilder(
+          future: DatabaseHelper.instance.getHistory(),
+          builder: (context, snapshot) {
+            if (snapshot.data != null) {
+              if (snapshot.data!.isNotEmpty) {
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return CustomListCard(
+                      listItem: snapshot.data![index],
+                      isInFavorites: false,
+                      showAddToFavorite: false,
+                    );
+                  },
+                );
+              }
+              return Center(
+                child: Text(
+                  AppStrings.empty,
+                  style: getBodyStyle(color: ColorManager.placeHolder),
+                  textAlign: TextAlign.center,
+                ),
+              );
+            }
+            return const CircularProgressIndicator();
+          });
     } else {
       return Center(
         child: Text(

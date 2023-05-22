@@ -108,7 +108,6 @@ class SearchView extends ConsumerWidget {
                         notFoundString: data.fetched
                             ? AppStrings.nothingSearch
                             : AppStrings.empty,
-                        searchHistoryList: data.searchHistoryList,
                       ),
                     );
                   },

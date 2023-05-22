@@ -47,7 +47,7 @@ class DatabaseHelper {
     return favoriteReposList;
   }
 
-  Future<List<GitRepo>> getHistory(String repoName) async {
+  Future<List<GitRepo>> getHistory() async {
     Database db = await instance.database;
     var searchHistoryRepos = await db.query('search_history');
     final searchHistoryList =
