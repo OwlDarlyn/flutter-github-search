@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:potje_test_assignment/data/local/database_helper.dart';
 import 'package:potje_test_assignment/model/git_api_response_model.dart';
+import 'package:potje_test_assignment/model/git_repos_model.dart';
 
 import 'package:potje_test_assignment/service/git_repos_service.dart';
 
@@ -16,13 +17,21 @@ class GitReposNotifier extends StateNotifier<AsyncValue<GitApiResponse>> {
   bool canFetchMore = true;
 
   GitReposNotifier(this._gitReposService) : super(const AsyncLoading()) {
-    state = AsyncValue.data(GitApiResponse(
+    state = AsyncValue.data(
+      GitApiResponse(
         resultCount: 0,
         reposList: [],
         favoriteReposList: [],
         fetched: false,
         pageNumber: 0,
-        repoName: ""));
+        repoName: "",
+        searchHistoryList: [],
+      ),
+    );
+  }
+
+  void addSearchHistory(String value) async {
+    await DatabaseHelper.instance.addToHistory(value);
   }
 
   void searchRepos(String repoName, int pageNumber) async {
@@ -38,13 +47,19 @@ class GitReposNotifier extends StateNotifier<AsyncValue<GitApiResponse>> {
       final newData = await _gitReposService.searchRepos(
           state.value!.repoName, state.value!.pageNumber + 1);
       final favorites = await DatabaseHelper.instance.getFavorites();
-      state = AsyncValue.data(GitApiResponse(
+      final history = await DatabaseHelper.instance.getHistory('');
+
+      state = AsyncValue.data(
+        GitApiResponse(
           fetched: true,
           pageNumber: state.value!.pageNumber + 1,
           repoName: state.value!.repoName,
           favoriteReposList: favorites,
           reposList: [...currentState, ...newData.reposList],
-          resultCount: state.value!.resultCount));
+          resultCount: state.value!.resultCount,
+          searchHistoryList: history,
+        ),
+      );
       canFetchMore = true;
     }
   }

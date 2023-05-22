@@ -9,7 +9,6 @@ TextStyle _getTextStyle(double fontSize, String fontFamily,
     fontFamily: fontFamily,
     fontWeight: fontWeight,
     color: color,
-    letterSpacing: letterSpacing,
   );
 }
 

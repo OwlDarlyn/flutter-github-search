@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:potje_test_assignment/presentation/resources/values_manager.dart';
 import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
@@ -41,7 +42,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
           ),
         ),
         leading: Container(
-          margin: const EdgeInsets.only(left: 16, top: 10),
+          margin: const EdgeInsets.only(left: AppMargin.m16, top: 10),
           height: 44,
           padding: const EdgeInsets.only(left: 6),
           decoration: BoxDecoration(
@@ -63,10 +64,12 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
             future: DatabaseHelper.instance.getFavorites(),
             builder: (context, AsyncSnapshot<List<GitRepo>> snapshot) {
               return ReposList(
-                  favoritesGitReposList: snapshot.data ?? [],
-                  gitReposList: [],
-                  mode: "favorites",
-                  notFoundString: AppStrings.nothingFavorite);
+                favoritesGitReposList: snapshot.data ?? [],
+                gitReposList: [],
+                mode: "favorites",
+                notFoundString: AppStrings.nothingFavorite,
+                searchHistoryList: [],
+              );
             }),
       ),
     );

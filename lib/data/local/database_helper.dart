@@ -28,10 +28,13 @@ class DatabaseHelper {
           id INTEGER,
           full_name TEXT,
           html_url TEXT
-      );
+      )
+      ''');
+    await db.execute('''
       CREATE TABLE search_history(
         id INTEGER PRIMARY KEY,
-        search_string TEXT
+        full_name TEXT,
+        html_url TEXT
       )
       ''');
   }
@@ -44,12 +47,27 @@ class DatabaseHelper {
     return favoriteReposList;
   }
 
-  Future<int> add(GitRepo gitRepo) async {
+  Future<List<GitRepo>> getHistory(String repoName) async {
+    Database db = await instance.database;
+    var searchHistoryRepos = await db.query('search_history');
+    final searchHistoryList =
+        searchHistoryRepos.map((e) => GitRepo.fromJson(e)).toList();
+    log(searchHistoryList.toString());
+    return searchHistoryList;
+  }
+
+  Future<int> addFavorite(GitRepo gitRepo) async {
     Database db = await instance.database;
     return await db.insert('favorite_repos', gitRepo.toMap());
   }
 
-  Future<int> delete(GitRepo gitRepo) async {
+  Future<int> addToHistory(String fullName) async {
+    Database db = await instance.database;
+    return await db
+        .insert('search_history', {'full_name': fullName, 'html_url': ''});
+  }
+
+  Future<int> deleteFavorite(GitRepo gitRepo) async {
     Database db = await instance.database;
     return await db.delete('favorite_repos',
         where: "id = ?", whereArgs: [gitRepo.id.toString()]);

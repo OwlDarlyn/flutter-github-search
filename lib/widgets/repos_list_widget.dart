@@ -11,20 +11,24 @@ class ReposList extends StatelessWidget {
   final String mode;
   final String notFoundString;
   final ScrollController? scrollController;
+  final List<GitRepo> searchHistoryList;
+
   const ReposList(
       {super.key,
       required this.gitReposList,
       required this.notFoundString,
       required this.favoritesGitReposList,
       required this.mode,
-      this.scrollController});
+      this.scrollController,
+      required this.searchHistoryList});
+
   bool getIsFavorite(GitRepo? gitRepo) {
     return favoritesGitReposList.contains(gitRepo);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (gitReposList.isNotEmpty ||
+    if ((mode == 'search' && gitReposList.isNotEmpty) ||
         (mode == 'favorites' && favoritesGitReposList.isNotEmpty)) {
       return ListView.builder(
           controller: scrollController,
@@ -34,15 +38,28 @@ class ReposList extends StatelessWidget {
           physics: const AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, index) {
             return CustomListCard(
-                isInFavorites: mode == 'search'
-                    ? favoritesGitReposList.any(
-                        (element) => element.id == gitReposList[index].id,
-                      )
-                    : true,
-                listItem: mode == 'search'
-                    ? gitReposList[index]
-                    : favoritesGitReposList[index]);
+              isInFavorites: mode == 'search'
+                  ? favoritesGitReposList.any(
+                      (element) => element.id == gitReposList[index].id,
+                    )
+                  : true,
+              listItem: mode == 'search'
+                  ? gitReposList[index]
+                  : favoritesGitReposList[index],
+              showAddToFavorite: true,
+            );
           });
+    } else if (mode == 'history' && searchHistoryList.isNotEmpty) {
+      return ListView.builder(
+        itemCount: searchHistoryList.length,
+        itemBuilder: (context, index) {
+          return CustomListCard(
+            listItem: searchHistoryList[index],
+            isInFavorites: false,
+            showAddToFavorite: false,
+          );
+        },
+      );
     } else {
       return Center(
         child: Text(

@@ -28,6 +28,7 @@ class SearchView extends ConsumerWidget {
 
     void onSearchSubmit(String repoName) {
       ref.read(gitReposProvider.notifier).searchRepos(repoName, 1);
+      ref.read(gitReposProvider.notifier).addSearchHistory(repoName);
     }
 
     String getSubtitleString() {
@@ -102,11 +103,12 @@ class SearchView extends ConsumerWidget {
                       child: ReposList(
                         scrollController: scrollController,
                         favoritesGitReposList: data.favoriteReposList,
-                        mode: "search",
+                        mode: data.fetched ? 'search' : 'history',
                         gitReposList: data.reposList,
                         notFoundString: data.fetched
                             ? AppStrings.nothingSearch
                             : AppStrings.empty,
+                        searchHistoryList: data.searchHistoryList,
                       ),
                     );
                   },

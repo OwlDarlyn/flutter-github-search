@@ -9,9 +9,13 @@ import 'package:potje_test_assignment/presentation/resources/styles_manager.dart
 class CustomListCard extends StatefulWidget {
   final GitRepo listItem;
   bool isInFavorites;
+  final bool showAddToFavorite;
 
   CustomListCard(
-      {super.key, required this.listItem, this.isInFavorites = false});
+      {super.key,
+      required this.listItem,
+      this.isInFavorites = false,
+      this.showAddToFavorite = false});
 
   @override
   State<CustomListCard> createState() => _CustomListCardState();
@@ -41,25 +45,26 @@ class _CustomListCardState extends State<CustomListCard> {
                 ),
               ),
             ),
-            IconButton(
-                onPressed: () {
-                  if (widget.isInFavorites) {
-                    DatabaseHelper.instance.delete(widget.listItem);
-                    widget.isInFavorites = false;
-                    setState(() {});
-                  } else {
-                    DatabaseHelper.instance.add(widget.listItem);
-                    widget.isInFavorites = true;
-                    setState(() {});
-                  }
-                },
-                icon: Icon(
-                  Icons.star,
-                  color: widget.isInFavorites
-                      ? ColorManager.accentPrimary
-                      : ColorManager.placeHolder,
-                  size: 28,
-                ))
+            if (widget.showAddToFavorite)
+              IconButton(
+                  onPressed: () {
+                    if (widget.isInFavorites) {
+                      DatabaseHelper.instance.deleteFavorite(widget.listItem);
+                      widget.isInFavorites = false;
+                      setState(() {});
+                    } else {
+                      DatabaseHelper.instance.addFavorite(widget.listItem);
+                      widget.isInFavorites = true;
+                      setState(() {});
+                    }
+                  },
+                  icon: Icon(
+                    Icons.star,
+                    color: widget.isInFavorites
+                        ? ColorManager.accentPrimary
+                        : ColorManager.placeHolder,
+                    size: 28,
+                  ))
           ],
         ),
       ),
