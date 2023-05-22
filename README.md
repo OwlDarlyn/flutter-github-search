@@ -16,4 +16,5 @@ An application, which searches Repositories by name using GitHub API.
 ![](search_empty.png)
 ![](search_active_input.png)
 ![](search_list.png)
+![](search_history.png)
 ![](favorite_list.png)
