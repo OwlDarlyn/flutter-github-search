@@ -21,7 +21,7 @@ class RouteGenerator {
         return MaterialPageRoute(
             builder: (_) => ProviderScope(child: SearchView()));
       case Routes.favoriteRoute:
-        return MaterialPageRoute(builder: (_) => const FavoriteScreen());
+        return MaterialPageRoute(builder: (_) => FavoriteScreen());
       default:
         return unDefinedRoute();
     }

@@ -10,6 +10,7 @@ import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/routes_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
+import 'package:potje_test_assignment/presentation/views/favorite_view.dart';
 import 'package:potje_test_assignment/provider/git_repos_provider.dart';
 import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
 
@@ -17,10 +18,11 @@ class SearchView extends ConsumerWidget {
   SearchView({super.key});
 
   final ScrollController scrollController = ScrollController();
+  final routeGenerator = RouteGenerator();
 
-  void goToFavorite(BuildContext context) {
-    Navigator.pushReplacementNamed(context, Routes.favoriteRoute);
-  }
+  // void goToFavorite(BuildContext context) {
+  //   Navigator.push(context, RouteGenerator().getRoute(Routes.favoriteRoute));
+  // }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -70,7 +72,8 @@ class SearchView extends ConsumerWidget {
                 color: ColorManager.accentPrimary,
                 borderRadius: const BorderRadius.all(Radius.circular(12))),
             child: IconButton(
-              onPressed: () => goToFavorite(context),
+              onPressed: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FavoriteScreen())),
               icon: Icon(
                 Icons.star,
                 size: 28,

@@ -1,7 +1,9 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:potje_test_assignment/presentation/resources/values_manager.dart';
+import 'package:potje_test_assignment/presentation/views/search_view.dart';
 import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
@@ -21,9 +23,10 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  void goToSearch(BuildContext context) {
-    Navigator.pushReplacementNamed(context, Routes.searchRoute);
-  }
+  // void goToSearch(BuildContext context) {
+  //   Navigator.push(
+  //       context, MaterialPageRoute(builder: (context) => SearchView()));
+  // }
 
   @override
   void initState() {
@@ -49,7 +52,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               color: ColorManager.accentPrimary,
               borderRadius: const BorderRadius.all(Radius.circular(12))),
           child: IconButton(
-              onPressed: () => goToSearch(context),
+              onPressed: () => Navigator.pop(context),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: ColorManager.main,
@@ -66,7 +69,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               return ReposList(
                 favoritesGitReposList: snapshot.data ?? [],
                 gitReposList: [],
-                mode: "favorites",
+                mode: 'favorites',
                 notFoundString: AppStrings.nothingFavorite,
               );
             }),

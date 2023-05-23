@@ -66,16 +66,18 @@ class ReposList extends StatelessWidget {
                     );
                   },
                 );
+              } else {
+                return Center(
+                  child: Text(
+                    AppStrings.empty,
+                    style: getBodyStyle(color: ColorManager.placeHolder),
+                    textAlign: TextAlign.center,
+                  ),
+                );
               }
-              return Center(
-                child: Text(
-                  AppStrings.empty,
-                  style: getBodyStyle(color: ColorManager.placeHolder),
-                  textAlign: TextAlign.center,
-                ),
-              );
+            } else {
+              return const CircularProgressIndicator();
             }
-            return const CircularProgressIndicator();
           });
     } else {
       return Center(
