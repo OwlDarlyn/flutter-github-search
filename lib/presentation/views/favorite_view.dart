@@ -23,10 +23,9 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
-  // void goToSearch(BuildContext context) {
-  //   Navigator.push(
-  //       context, MaterialPageRoute(builder: (context) => SearchView()));
-  // }
+  void goToSearch(BuildContext context) {
+    Navigator.pop(context);
+  }
 
   @override
   void initState() {
@@ -52,7 +51,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               color: ColorManager.accentPrimary,
               borderRadius: const BorderRadius.all(Radius.circular(12))),
           child: IconButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () => goToSearch(context),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: ColorManager.main,
