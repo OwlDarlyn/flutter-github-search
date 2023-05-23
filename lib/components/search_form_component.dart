@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
-import 'package:potje_test_assignment/data/network/git_repos_api.dart';
-import 'package:potje_test_assignment/provider/git_repos_provider.dart';
 
 class SearchForm extends StatelessWidget {
   final Function(String value) onSubmit;

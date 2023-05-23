@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:potje_test_assignment/model/git_repos_model.dart';
 
 class GitApiResponse {

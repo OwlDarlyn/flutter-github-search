@@ -1,12 +1,8 @@
 import 'dart:convert';
-import 'dart:developer';
-import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:potje_test_assignment/data/local/database_helper.dart';
 import 'package:potje_test_assignment/model/git_api_response_model.dart';
-
-import '../model/git_repos_model.dart';
 
 class GitReposService {
   Future<GitApiResponse> searchRepos(String repoName, int pageNumber) async {

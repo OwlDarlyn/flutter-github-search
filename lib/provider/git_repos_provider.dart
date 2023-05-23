@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:potje_test_assignment/data/local/database_helper.dart';
 import 'package:potje_test_assignment/model/git_api_response_model.dart';
-import 'package:potje_test_assignment/model/git_repos_model.dart';
 
 import 'package:potje_test_assignment/service/git_repos_service.dart';
 

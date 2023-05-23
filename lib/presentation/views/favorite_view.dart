@@ -1,19 +1,13 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:potje_test_assignment/presentation/resources/values_manager.dart';
-import 'package:potje_test_assignment/presentation/views/search_view.dart';
-import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
 
+import 'package:potje_test_assignment/presentation/resources/values_manager.dart';
+import 'package:potje_test_assignment/widgets/repos_list_widget.dart';
 import 'package:potje_test_assignment/presentation/resources/color_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/font_manager.dart';
-import 'package:potje_test_assignment/presentation/resources/routes_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/strings_manager.dart';
 import 'package:potje_test_assignment/presentation/resources/styles_manager.dart';
-
-import '../../data/local/database_helper.dart';
-import '../../model/git_repos_model.dart';
+import 'package:potje_test_assignment/data/local/database_helper.dart';
+import 'package:potje_test_assignment/model/git_repos_model.dart';
 
 class FavoriteScreen extends StatefulWidget {
   const FavoriteScreen({super.key});

@@ -1,9 +1,10 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:path/path.dart';
-import 'package:potje_test_assignment/model/git_repos_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'package:potje_test_assignment/model/git_repos_model.dart';
 
 class DatabaseHelper {
   DatabaseHelper._privateConstructor();
